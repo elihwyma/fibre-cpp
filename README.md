@@ -25,7 +25,7 @@ Refer to [libfibre.h](include/fibre/libfibre.h) for documentation of the API.
 
 ### macOS
   1. `brew install libusb`
-  2. Navigate to this directory and run `make`
+  2. Navigate to this directory and run `make mac`
 
 ### Cross-compile `libfibre` on Linux for all other platforms
 The file `./compile_for_all_platforms.sh` cross-compiles libfibre for all supported platforms. This is mainly intended for CI to generate releases. It written to run on Arch Linux only. Check the script to see which packages need to be installed first.

@@ -19,11 +19,7 @@ else ifeq ($(shell uname -s),Linux)
 	endif
 else ifeq ($(shell uname -s),Darwin)
 	target = macos
-	ifeq ($(shell uname -m),x86_64)
-		outname = libfibre-macos-multiarch.dylib
-	else
-		$(error unsupported platform)
-	endif
+	outname = libfibre-macos-multiarch.dylib
 endif
 
 
@@ -32,6 +28,12 @@ FILES=libfibre.cpp \
 	legacy_protocol.cpp \
 	legacy_object_client.cpp \
 	logging.cpp
+
+# libusb-1.0 is in /opt/homebrew/Cellar/libusb/1.0.27
+mac:
+	clang++ -o $(outname) -shared -fPIC -std=c++11 -I/opt/homebrew/Cellar/libusb/1.0.27/include/libusb-1.0 -I./include -DFIBRE_COMPILE -DFIBRE_ENABLE_CLIENT \
+		$(FILES) \
+		/opt/homebrew/Cellar/libusb/1.0.27/lib/libusb-1.0.a -framework CoreFoundation -framework IOKit -framework Security -framework CoreServices
 
 linux:
 	g++ -shared -o $(outname) -fPIC -std=c++11 -I/usr/include/libusb-1.0 -I./include -DFIBRE_COMPILE -DFIBRE_ENABLE_CLIENT \
